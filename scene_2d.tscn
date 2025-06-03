@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://71m6oxt4odmj"]
+
+[ext_resource type="Texture2D" uid="uid://di0bohjjwe2j0" path="res://assets/lego indiana jones no bg.png" id="1_c4isy"]
+[ext_resource type="Texture2D" uid="uid://cxwu3tany07ni" path="res://assets/bricks.jpg" id="1_haudk"]
+[ext_resource type="Script" uid="uid://oyauie1yph8w" path="res://scripts/LevelCamera.cs" id="3_556m2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbwex"]
+size = Vector2(1413, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4isy"]
+size = Vector2(114.5, 190)
+
+[node name="World" type="Node2D"]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(678, 634)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_cbwex")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor"]
+position = Vector2(0, 0.147487)
+scale = Vector2(5.13091, 1.60954)
+texture = ExtResource("1_haudk")
+region_enabled = true
+region_rect = Rect2(0, 1.95874, 275, 11.8915)
+
+[node name="Player" type="RigidBody2D" parent="."]
+position = Vector2(186, 467)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0.75, 5)
+shape = SubResource("RectangleShape2D_c4isy")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+texture = ExtResource("1_c4isy")
+
+[node name="LevelCamera" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+script = ExtResource("3_556m2")
