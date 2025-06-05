@@ -9,8 +9,6 @@ public partial class LevelCamera : Camera2D {
     public override void _Ready()
     {
         player = GetNode<RigidBody2D>("../Player");
-
-        Zoom = new Vector2(0.5f, 0.5f);
     }
 
     public override void _Process(double delta)
