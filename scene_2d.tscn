@@ -1,34 +1,36 @@
-[gd_scene load_steps=6 format=3 uid="uid://71m6oxt4odmj"]
+[gd_scene load_steps=9 format=3 uid="uid://71m6oxt4odmj"]
 
 [ext_resource type="Texture2D" uid="uid://di0bohjjwe2j0" path="res://assets/lego indiana jones no bg.png" id="1_c4isy"]
-[ext_resource type="Texture2D" uid="uid://cxwu3tany07ni" path="res://assets/bricks.jpg" id="1_haudk"]
+[ext_resource type="Script" uid="uid://cmu67hllu65tk" path="res://scripts/Player.cs" id="2_556m2"]
 [ext_resource type="Script" uid="uid://oyauie1yph8w" path="res://scripts/LevelCamera.cs" id="3_556m2"]
+[ext_resource type="Texture2D" uid="uid://cxwu3tany07ni" path="res://assets/bricks.jpg" id="4_uv5y8"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbwex"]
-size = Vector2(1413, 20)
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_556m2"]
+friction = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c4isy"]
 size = Vector2(114.5, 190)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_556m2"]
+size = Vector2(65, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbwex"]
+size = Vector2(10000, 100)
+
 [node name="World" type="Node2D"]
 
-[node name="Floor" type="StaticBody2D" parent="."]
-position = Vector2(678, 634)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
-shape = SubResource("RectangleShape2D_cbwex")
-metadata/_edit_group_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="Floor"]
-position = Vector2(0, 0.147487)
-scale = Vector2(5.13091, 1.60954)
-texture = ExtResource("1_haudk")
-region_enabled = true
-region_rect = Rect2(0, 1.95874, 275, 11.8915)
+[node name="LevelCamera" type="Camera2D" parent="."]
+position = Vector2(322, 522)
+position_smoothing_enabled = true
+script = ExtResource("3_556m2")
+cameraHeightOffset = 250
 
 [node name="Player" type="RigidBody2D" parent="."]
-position = Vector2(186, 467)
+position = Vector2(299, 768)
+mass = 60.0
+physics_material_override = SubResource("PhysicsMaterial_556m2")
+max_contacts_reported = 1
+script = ExtResource("2_556m2")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -38,6 +40,35 @@ shape = SubResource("RectangleShape2D_c4isy")
 [node name="Sprite2D" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_c4isy")
 
-[node name="LevelCamera" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-script = ExtResource("3_556m2")
+[node name="PlayerFeetArea" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/PlayerFeetArea"]
+position = Vector2(0.5, 98.5)
+shape = SubResource("RectangleShape2D_556m2")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(5000, 1000)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_cbwex")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Floor"]
+position = Vector2(-2.6364e-05, 161)
+scale = Vector2(31.4465, 2.65409)
+texture = ExtResource("4_uv5y8")
+region_enabled = true
+region_rect = Rect2(0, 0, 318, 159)
+
+[node name="Ceiling" type="StaticBody2D" parent="."]
+position = Vector2(5000, 50)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling"]
+shape = SubResource("RectangleShape2D_cbwex")
+metadata/_edit_group_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Ceiling"]
+polygon = PackedVector2Array(-5000, -50, -5000, 50, 5000, 50, 5000, -50)
+uv = PackedVector2Array(-156.5, -34, -134.5, 29, -24.5, -10, -50.5, -54, -142.5, -66, -177.5, -97, -204.5, -56, -133.5, -49)
