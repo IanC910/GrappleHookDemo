@@ -47,11 +47,11 @@ public partial class Player : RigidBody2D
                 ApplyCentralForce(new Vector2(Mass * lateralAcceleration, 0));
             }
         }
-            // Braking
-            else
-            {
-                ApplyCentralForce(new Vector2(Mass * -Math.Sign(LinearVelocity.X) * BRAKE_ACC, 0));
-            }
+        // Braking
+        else
+        {
+            ApplyCentralForce(new Vector2(Mass * -Math.Sign(LinearVelocity.X) * BRAKE_ACC, 0));
+        }
 
         // Jumping
         if (onGround && Input.IsKeyPressed(Key.Space))
